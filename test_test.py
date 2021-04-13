@@ -11,8 +11,7 @@ from details.motors import Motors
 from details.wheels import Wheels
 from typing import List
 
-
-class TestPep8(unittest.TestCase):
+class TestManage(unittest.TestCase):
     def setUp(self):
         self.details = [
             Motors(20866, 'German', 'Metal'),
@@ -20,12 +19,14 @@ class TestPep8(unittest.TestCase):
             Doors(10232, 'German', 'Metal')
         ]
 
-        self.fadetails = DetailsManager
+        self.fadetails = DetailsManager()
+        self.fadetails.add_details(self.details)
 
     def test_sort_by_ser_num(self):
-        expect = Doors(10232, 'German', 'Metal'), Wheels(20456, 'England', 'Metal'), Motors(20866, 'German', 'Metal')
+        expect = sorted(self.details, key=lambda s: s.sser_num, reverse=DetailType.NoChassis.value)
         self.assertEqual(self.fadetails.sort_by_ser_num(details=self.details, order=DetailType.NoChassis), expect)
 
+class TestPep8(unittest.TestCase):
     def test_pep8(self):
         style = pep8.StyleGuide()
         style.options.max_line_length = 115
