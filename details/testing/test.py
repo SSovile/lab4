@@ -19,6 +19,6 @@ class DetailsTest:
 
         print('All:\n\t', '\n\t'.join([str(i) for i in fac.details]), '\n')
         print('Sorted by ser_num:\n\t',
-              '\n\t'.join([str(i) for i in fac.sort_by_ser_num(fac.details, DetailType.Chassis)]), '\n')
+              '\n\t'.join([str(i) for i in fac.sort_by_ser_num(True)]), '\n')
         print('Sorted by product:\n\t',
               '\n\t'.join([str(i) for i in fac.sort_by_product(fac.details, DetailType.Chassis)]), '\n')

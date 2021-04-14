@@ -13,8 +13,8 @@ class DetailsManager:
     def add_details(self, details: List[Details]) -> None:
         self.details += details
 
-    def sort_by_ser_num(self, details: list, order: DetailType):
-        return sorted(details, key=lambda s: s.sser_num, reverse=order.value)
+    def sort_by_ser_num(self, reverse: bool = False, details: List[Details] = None) -> List[Details]:
+        return sorted(details if details else self.details, key=lambda s: s.sser_num, reverse=reverse)
 
     def sort_by_product(self, details: list, order: DetailType):
         return sorted(details, key=lambda s: s.pproduct, reverse=order.value)

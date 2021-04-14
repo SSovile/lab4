@@ -9,24 +9,10 @@ from details.doors import Doors
 from details.manager import DetailsManager
 from details.motors import Motors
 from details.wheels import Wheels
-from typing import List
 
-class TestManage(unittest.TestCase):
-    def setUp(self):
-        self.details = [
-            Motors(20866, 'German', 'Metal'),
-            Wheels(20456, 'England', 'Metal'),
-            Doors(10232, 'German', 'Metal')
-        ]
-
-        self.fadetails = DetailsManager()
-        self.fadetails.add_details(self.details)
-
-    def test_sort_by_ser_num(self):
-        expect = sorted(self.details, key=lambda s: s.sser_num, reverse=DetailType.NoChassis.value)
-        self.assertEqual(self.fadetails.sort_by_ser_num(details=self.details, order=DetailType.NoChassis), expect)
 
 class TestPep8(unittest.TestCase):
+
     def test_pep8(self):
         style = pep8.StyleGuide()
         style.options.max_line_length = 115
@@ -42,7 +28,30 @@ class TestPep8(unittest.TestCase):
         print('PEP8 style errors: %d' % check.total_errors)
 
 
+details = [
+    Doors(10232, 'German', 'Metal'),
+    Wheels(20456, 'England', 'Metal'),
+    Motors(20866, 'German', 'Metal'),
+    Doors(10646, 'Spain', 'Metal'),
+    Wheels(30564, 'England', 'Metal'),
+    Motors(17777, 'Spain', 'Metal'),
+]
+
+
 class ManagerTest(unittest.TestCase):
+    def test_sort_by_number_of_players(self):
+        fac = DetailsManager()
+        fac.add_details(details)
+
+        expect = Wheels(30564, 'England', 'Metal'), \
+                 Motors(20866, 'German', 'Metal'), \
+                 Wheels(20456, 'England', 'Metal'), \
+                 Motors(17777, 'Spain', 'Metal'), \
+                 Doors(10646, 'Spain', 'Metal'), \
+                 Doors(10232, 'German', 'Metal')
+        self.assertListEqual(fac.sort_by_ser_num(True),
+                             sorted(details, key=lambda s: s.sser_num, reverse=True), expect)
+
     def test_add_details(self):
         details = [
             Doors(10232, 'German', 'Metal'),
@@ -71,7 +80,6 @@ class ManagerTest(unittest.TestCase):
         fakeman.add_details(details)
 
         self.assertListEqual(fakeman.details, details)
-
 
 
 if __name__ == '__main__':
