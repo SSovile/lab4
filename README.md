@@ -2,7 +2,7 @@
 
 #Lab 4 Task
 
- Count and output the number of successful GET requests and display the total number of bytes returned as a result of execution
+ Create Unittest and have coverage more than 80%.
 
 How to run
 
